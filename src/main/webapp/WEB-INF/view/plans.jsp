@@ -27,7 +27,8 @@
 <br>
 <div class="content">
 
-<%--    <c:choose>--%>
+
+    <%--    <c:choose>--%>
 <%--        <c:when test="${mode=='ADD_PLANS'}">--%>
 <%--            <div class="container" align="center">--%>
 <%--                <br>--%>
