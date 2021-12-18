@@ -27,6 +27,28 @@
 
     <h1>Welcome <%=session.getAttribute("username2")%> </h1>
 </div>
+
+
+<div class="content">
+
+    <c:choose>
+    <c:when test="${mode=='ADD_PLANS'}">
+    <div class="container" align="center">
+        <br>
+        <h3>ADDING NEW DIET PLANNER</h3>
+        <form method="POST" action="/save-plans">
+                <%--                <input type="hidden" name="id" value=${dietplanner.id}><br>--%>
+            <br><input type="text" name="pname" placeholder="PLAN NAME" value="${plans.pname}" required><br>
+            <br><input type="text" name="pamount" placeholder="AMOUNT" value="${plans.pamount}" required><br>
+            <br><input type="text" name="description" placeholder=DESCRIPTION" value="${plans.description}" required><br>
+            <br><input type="submit" value="ADD"><br>
+        </form>
+        <br>
+        <!--<p><a href="/adminhome" style="text-decoration: none;color: #2645d9"></a> </p> -->
+    </div>
+    </c:when>
+    </c:choose>
+</div>
 </body>
 
 <style>

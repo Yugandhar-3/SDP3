@@ -89,7 +89,7 @@ public class AdminController {
     @RequestMapping("/addnewplan")
     public String AddPlans(HttpServletRequest request){
         request.setAttribute("mode","ADD_PLANS");
-        return "plans";
+        return "adminhome";
     }
 
     @PostMapping("/save-plans")
