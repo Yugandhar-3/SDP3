@@ -3,22 +3,72 @@
 <html>
 <head>
     <title>SDP3</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            font-family: "Times New Roman";
+        }
+        header{
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.1)),url('http://localhost:8978/img/img_2.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        nav{
+            width: 100%;
+            height: 12vh;
+            background-color: rgba(0,0,0,0.2);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-transform: uppercase;
+        }
+        nav .menu{
+            width: 25%;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        nav .menu a{
+            width: 2px;
+            text-decoration: none;
+            color: white;
+        }
+        nav .menu a:hover{
+            text-decoration: underline;
+            color: #f3955b;
+        }
+        nav .logo{
+            width: 15%;
+            text-align: center;
+        }
+
+    </style>
 </head>
-<body style="background-image: url('http://localhost:8978/img/img_1.png'); background-repeat: no-repeat;
-background-size: cover;
-height: 95vh;
-background-color: rgba(0,0,0,0.8);">
-<div id="navbar" class="navd">
-    <ul>
-        <li><a href="/"><h3>WELCOME</h3></a></li>
-       <div class="topright">
-            <li><a href="/register" class="active">Register</a> |</li>
-            <li><a href="/login" class="active">Login</a> | </li>
-            <li><a href="/adminlogin" class="active">AdminLogin</a></li>
-            <li><a href="#" class="active">Contact</a></li>
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <h1 class=""><img src="http://localhost:8978/img/img_4.png" style="width: 90%; height: 90%;"></h1>
         </div>
-    </ul>
-</div>
+        <div class="menu">
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+    <main>
+        <section>
+            <h3>DIETLY</h3>
+            <a href="#"class="aboutpage">Know More</a>
+            <a href="#"class="registerpage">Sign Up</a>
+        </section>
+    </main>
+
+</header>
+
 <div class="content">
     <c:choose>
         <c:when test="${mode=='MODE_REGISTER'}">
