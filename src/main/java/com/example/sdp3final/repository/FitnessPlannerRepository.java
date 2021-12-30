@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FitnessPlannerRepository extends CrudRepository<FitnessPlanner,Integer> {
+    FitnessPlanner findFitnessPlannerById(int id);
 }

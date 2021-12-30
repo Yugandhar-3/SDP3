@@ -27,8 +27,15 @@ public class UserService {
     public void savemyuser(User user){
         userRepository.save(user);
     }
+    public void saveuser(User user){
+        this.userRepository.save(user);
+    }
     public User findByEmailAndPassword(String email,String password){
         return userRepository.findByEmailAndPassword(email,password);
+    }
+
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 
     //calculate bmi

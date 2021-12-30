@@ -1,24 +1,25 @@
 package com.example.sdp3final.controller;
 
-import com.example.sdp3final.model.Admin;
-import com.example.sdp3final.model.BMI;
-import com.example.sdp3final.model.Login;
-import com.example.sdp3final.model.User;
+import com.example.sdp3final.model.*;
 import com.example.sdp3final.repository.LoginRepository;
+import com.example.sdp3final.repository.UserRepository;
 import com.example.sdp3final.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import com.paytm.pg.merchant.PaytmChecksum;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 @Transactional
@@ -92,6 +93,40 @@ public class ApplicantController {
         return "customerhome";
     }
 
+    //Profile for Customers
+    @RequestMapping("/myprofile")
+    public String displayProfile(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        String a=request.getSession().getAttribute("username1").toString();
+        if(a!=null){
+            request.setAttribute("userprofile",userService.findByEmail(a));
+            request.setAttribute("mode","PROFILE");
+            return "profile";
+        }
+        else
+            return "customerhome";
+    }
+
+    @RequestMapping("edit-profile")
+    public String editProfile(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        String a=request.getSession().getAttribute("username1").toString();
+        if(a!=null){
+            request.setAttribute("userdetails",userService.findByEmail(a));
+            request.setAttribute("mode","EDIT_PROFILE");
+            return "edit_profile";
+        }
+        else{
+            return "customerhome";
+        }
+    }
+
+    @PostMapping("updateuser")
+    public String updateProfile(@ModelAttribute User user){
+        userService.savemyuser(user);
+        return "redirect:/myprofile";
+    }
+
     //showing plans
     @GetMapping("/premiumplans")
     public String showAllDietPlanners(HttpServletRequest request){
@@ -105,6 +140,7 @@ public class ApplicantController {
         else
             return "customerhome";
     }
+
 
     //CALCULATE BMI
     @RequestMapping("/calculate")
@@ -132,6 +168,86 @@ public class ApplicantController {
             return "bmi";
         }
         return "customerhome";
+    }
+
+   @GetMapping("/paymentform/{pname}/{pamount}")
+   // @GetMapping("/paymentform")
+    public String displayForm(@PathVariable("pname") String panme,@PathVariable("pamount") String pamount,HttpServletRequest request)
+    {
+        Plans p=new Plans();
+        p.setPname(panme);
+        p.setPamount(pamount);
+        p.setDescription(" ");
+        request.setAttribute("plan",p);
+        request.setAttribute("mode","Display_Form");
+        return "plans";
+    }
+    @Autowired
+    private PaytmDetailPojo paytmDetailPojo;
+    @Autowired
+    private Environment env;
+    @PostMapping(value = "/submitPaymentDetail")
+    public ModelAndView getRedirect(@RequestParam(name = "pname") String pname,
+                                    @RequestParam(name = "pamount") String transactionAmount) throws Exception {
+
+        ModelAndView modelAndView = new ModelAndView("redirect:" + paytmDetailPojo.getPaytmUrl());
+        TreeMap<String, String> parameters = new TreeMap<>();
+        paytmDetailPojo.getDetails().forEach((k, v) -> parameters.put(k, v));
+        parameters.put("MOBILE_NO", env.getProperty("paytm.mobile"));
+        parameters.put("EMAIL", env.getProperty("paytm.email"));
+        parameters.put("ORDER_ID", "715196");
+        parameters.put("TXN_AMOUNT", transactionAmount);
+        parameters.put("CUST_ID", "55115156");
+        String checkSum = getCheckSum(parameters);
+        parameters.put("CHECKSUMHASH", checkSum);
+        modelAndView.addAllObjects(parameters);
+        return modelAndView;
+    }
+    @PostMapping(value = "/pgresponse")
+    public String getResponseRedirect(HttpServletRequest request, Model model) {
+
+        Map<String, String[]> mapData = request.getParameterMap();
+        TreeMap<String, String> parameters = new TreeMap<String, String>();
+        String paytmChecksum = "";
+        for (Map.Entry<String, String[]> requestParamsEntry : mapData.entrySet()) {
+            if ("CHECKSUMHASH".equalsIgnoreCase(requestParamsEntry.getKey())){
+                paytmChecksum = requestParamsEntry.getValue()[0];
+            } else {
+                parameters.put(requestParamsEntry.getKey(), requestParamsEntry.getValue()[0]);
+            }
+        }
+        String result;
+
+        boolean isValideChecksum = false;
+        System.out.println("RESULT : "+parameters.toString());
+        try {
+            isValideChecksum = validateCheckSum(parameters, paytmChecksum);
+            if (isValideChecksum && parameters.containsKey("RESPCODE")) {
+                if (parameters.get("RESPCODE").equals("01")) {
+                    result = "Payment Successful";
+                } else {
+                    result = "Payment Failed";
+                }
+            } else {
+                result = "Checksum mismatched";
+            }
+        } catch (Exception e) {
+            result = e.toString();
+        }
+        System.out.println(result);
+//        model.addAttribute("result",result);
+        request.setAttribute("result",result);
+        parameters.remove("CHECKSUMHASH");
+        model.addAttribute("parameters",parameters);
+        return "report";
+    }
+
+    private boolean validateCheckSum(TreeMap<String, String> parameters, String paytmChecksum) throws Exception {
+        return PaytmChecksum.verifySignature(parameters,
+                paytmDetailPojo.getMerchantKey(), paytmChecksum);
+    }
+    private String getCheckSum(TreeMap<String, String> parameters) throws Exception {
+        return PaytmChecksum.generateSignature(parameters, paytmDetailPojo.getMerchantKey());
     }
 
 

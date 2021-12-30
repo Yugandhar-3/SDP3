@@ -24,8 +24,8 @@
                             <th>Gender</th>
                             <th>Experience</th>
                             <th>Address</th>
-                                <%--                        <th>Delete</th>--%>
-                                <%--                        <th>Edit</th>--%>
+                            <th>Delete</th>
+                            <th>Edit</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -38,14 +38,28 @@
                                 <td>${fitnessplanner.gender}</td>
                                 <td>${fitnessplanner.experience}</td>
                                 <td>${fitnessplanner.address}</td>
-                                <td><a href="/delete-user?id=${fitnessplanner.id }">DELETE<i class="fa fa-trash-o" style="font-size:24px"></i></a></td>
-                                <td><a href="/edit-user?id=${fitnessplanner.id }">EDIT<i class="fa fa-pencil" style="font-size:24px"></i></a></td>
+                                <td><a href="/edit-fuser/${fitnessplanner.id }">EDIT<i class="fa fa-trash-o" style="font-size:24px"></i></a></td>
+                                <td><a href="/delete-fuser/${fitnessplanner.id }">DELETE<i class="fa fa-pencil" style="font-size:24px"></i></a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
                 </div>
             </div>
+        </c:when>
+        <c:when test="${mode=='EDIT_MODE'}">
+            <form name="edit" action="/updatefitnessplanner" method="post">
+                <input type="hidden" name="id" value="${FitnessTrainer.id}">
+                <input type="text" name="fullname" value="${FitnessTrainer.fullname}">
+                <input type="text" name="email" value="${FitnessTrainer.email}">
+                <input type="text" name="phone" value="${FitnessTrainer.phone}">
+                <input type="text" name="gender" value="${FitnessTrainer.gender}">
+                <input type="text" name="experience" value="${FitnessTrainer.experience}">
+                <input type="text" name="address" value="${FitnessTrainer.address}">
+                <input type="hidden" name="password" value="${FitnessTrainer.password}">
+                <input type="submit" value="Submit">
+            </form>
+
         </c:when>
     </c:choose>
 </div>

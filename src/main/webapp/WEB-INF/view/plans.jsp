@@ -65,11 +65,43 @@
                                 <td>${plans.pname}</td>
                                 <td>${plans.pamount}</td>
                                 <td>${plans.description}</td>
-                                <td><a href="#">BuyNow</a></td>
+                                <td><a href="/paymentform/${plans.pname}/${plans.pamount}">BuyNow</a></td>
                             </tr>
                         </c:forEach>
                         </table>
                 </div>
+            </div>
+        </c:when>
+
+        <c:when test="${mode=='Display_Form' }">
+            <div class="container text-center" id="tasksDiv">
+                <h3>Premium Subscription Purchase</h3>
+                <hr>
+<%--                <div class="tabledata" style="margin-left: 70px;margin-right: 70px;margin-top: 20px;">--%>
+<%--                    <table class="table table-striped table-bordered">--%>
+<%--                        <tr>--%>
+<%--                            <th>Plan Name</th>--%>
+<%--                            <th>Plan Amount</th>--%>
+<%--                            <th>Plan Description</th>--%>
+<%--                            <th></th>--%>
+<%--                        </tr>--%>
+<%--                        <c:forEach var="plans" items="${planss }">--%>
+<%--                            <tr>--%>
+<%--                                <td>${plans.pname}</td>--%>
+<%--                                <td>${plans.pamount}</td>--%>
+<%--                                <td>${plans.description}</td>--%>
+<%--                                <td><a href="/paymentform/?planName=${plans.pname}&&planAmount=${plans.pamount}">BuyNow</a></td>--%>
+<%--                            </tr>--%>
+<%--                        </c:forEach>--%>
+<%--                    </table>--%>
+<%--                </div>--%>
+                <form method="post" action="/submitPaymentDetail">
+                    <input type="text" value="${plan.pname}" name="pname">
+                    <input type="text" value="RETAIL" name="INDUSTRY_TYPE_ID"/>
+                    <input type="text" value="WEB" name="CHANNEL_ID"/>
+                    <input type="text" value="${plan.pamount}" name="pamount"/>
+                   <input type="submit" placeholder="Pay Now"/>
+                </form>
             </div>
         </c:when>
     </c:choose>

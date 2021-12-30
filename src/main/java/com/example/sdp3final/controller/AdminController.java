@@ -4,10 +4,7 @@ import com.example.sdp3final.model.*;
 import com.example.sdp3final.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -127,12 +124,56 @@ public class AdminController {
         return "viewalldietplanners";
     }
 
+    //Edit Diet Planner
+    @GetMapping("/edit-user/{id}")
+    public String showEditDietPlannerForm(@PathVariable("id") int id, HttpServletRequest request){
+        request.setAttribute("Dietplanner",adminService.findDietplannerById(id));
+        request.setAttribute("mode","EDIT_MODE");
+        return "viewalldietplanners";
+    }
+
+    //Update Diet Planner
+    @PostMapping("updatedietplanner")
+    public String updateDietPlanner(@ModelAttribute DietPlanner dp, HttpServletRequest request){
+        adminService.savedietplanner(dp);
+        return "adminhome";
+    }
+
+    //Delete Diet Planner
+    @GetMapping("delete-user/{id}")
+    public String deleteDietPlanner(@PathVariable("id") int id, HttpServletRequest request){
+        adminService.deleteDietPlannerById(id);
+        return "adminhome";
+    }
+
     //VIEWING ALL FITNESS PLANNERS
     @GetMapping("/viewallfitnessplanners")
     public String showAllFitnessPlanners(HttpServletRequest request){
         request.setAttribute("fitnessplanners",adminService.showAllFitnessPlanners());
         request.setAttribute("mode","ALL_FITNESSPLANNERS");
         return "viewallfitnessplanners";
+    }
+
+    //Edit Fitness Trainer
+    @GetMapping("/edit-fuser/{id}")
+    public String showEditFitnessTrainerForm(@PathVariable("id") int id, HttpServletRequest request){
+        request.setAttribute("FitnessTrainer",adminService.findFitnessPlanner(id));
+        request.setAttribute("mode","EDIT_MODE");
+        return "viewallfitnessplanners";
+    }
+
+    //Update Fitness Planner
+    @PostMapping("updatefitnessplanner")
+    public String updateFitnessPlanner(@ModelAttribute FitnessPlanner fp, HttpServletRequest request){
+        adminService.savefitnessplanner(fp);
+        return "adminhome";
+    }
+
+    //Delete FitnessPlanner
+    @GetMapping("delete-fuser/{id}")
+    public String deleteFitnessPlanner(@PathVariable("id") int id, HttpServletRequest request){
+        adminService.deleteFit(id);
+        return "adminhome";
     }
 
     //VIEWING ALL FOODTYPES

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,6 +35,30 @@ public class AdminService {
         dietPlannerRepository.save(dietPlanner);
     }
 
+    public DietPlanner findDietplannerById(int id){
+        DietPlanner d=dietPlannerRepository.findDietPlannerById(id);
+        if(d!=null)
+          return d;
+        else
+            return null;
+    }
+
+    public void deleteDietPlannerById(int id){
+        dietPlannerRepository.deleteById(id);
+    }
+
+    public FitnessPlanner findFitnessPlanner(int id){
+        FitnessPlanner f = fitnessPlannerRepository.findFitnessPlannerById(id);
+        if(f!=null)
+            return f;
+        else
+            return null;
+
+    }
+
+    public void deleteFit(int id){
+        fitnessPlannerRepository.deleteById(id);
+    }
     //saving fitnessplanner
     public void savefitnessplanner(FitnessPlanner fitnessPlanner)
     {
