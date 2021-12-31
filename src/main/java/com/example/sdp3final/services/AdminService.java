@@ -107,4 +107,13 @@ public class AdminService {
         return foodTypes;
     }
 
+    //Displaying all Plans
+    public List<Plans> showAllPlans(){
+        List<Plans> plans = new ArrayList<>();
+        for (Plans plan:plansRepository.findAll()){
+            plans.add(plan);
+        }
+        return plans;
+    }
+
 }

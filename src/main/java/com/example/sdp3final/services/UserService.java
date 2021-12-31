@@ -1,17 +1,15 @@
 package com.example.sdp3final.services;
 
-import com.example.sdp3final.model.BMI;
-import com.example.sdp3final.model.Plans;
-import com.example.sdp3final.model.User;
-import com.example.sdp3final.repository.BMIRepository;
-import com.example.sdp3final.repository.PlansRepository;
-import com.example.sdp3final.repository.UserRepository;
+import com.example.sdp3final.model.*;
+import com.example.sdp3final.repository.*;
+import org.eclipse.jdt.internal.compiler.ast.LabeledStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,6 +18,11 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PlansRepository plansRepository;
+    @Autowired
+    private FoodTypeRepository foodTypeRepository;
+
+    @Autowired
+    private WishListRepository wishListRepository;
 
     @Autowired
     private BMIRepository bmiRepository;
@@ -27,6 +30,29 @@ public class UserService {
     public void savemyuser(User user){
         userRepository.save(user);
     }
+
+    public void saveWishList(WishList wishList){
+        wishListRepository.save(wishList);
+    }
+    public List<WishList> showWishlist(){
+        List<WishList> WishesList=new ArrayList<>();
+        for (WishList wish:wishListRepository.findAll()) {
+            WishesList.add(wish);
+        }
+        return WishesList;
+    }
+
+    public Optional<FoodType> getFoodByName(String fname){
+        Optional<FoodType> food = foodTypeRepository.findById(fname);
+//        FoodType food = foodTypeRepository.getFoodByName(fname);
+        if (food!=null){
+            return food;
+        }
+        else{
+            return null;
+        }
+    }
+
     public void saveuser(User user){
         this.userRepository.save(user);
     }

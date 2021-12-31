@@ -77,24 +77,6 @@
             <div class="container text-center" id="tasksDiv">
                 <h3>Premium Subscription Purchase</h3>
                 <hr>
-<%--                <div class="tabledata" style="margin-left: 70px;margin-right: 70px;margin-top: 20px;">--%>
-<%--                    <table class="table table-striped table-bordered">--%>
-<%--                        <tr>--%>
-<%--                            <th>Plan Name</th>--%>
-<%--                            <th>Plan Amount</th>--%>
-<%--                            <th>Plan Description</th>--%>
-<%--                            <th></th>--%>
-<%--                        </tr>--%>
-<%--                        <c:forEach var="plans" items="${planss }">--%>
-<%--                            <tr>--%>
-<%--                                <td>${plans.pname}</td>--%>
-<%--                                <td>${plans.pamount}</td>--%>
-<%--                                <td>${plans.description}</td>--%>
-<%--                                <td><a href="/paymentform/?planName=${plans.pname}&&planAmount=${plans.pamount}">BuyNow</a></td>--%>
-<%--                            </tr>--%>
-<%--                        </c:forEach>--%>
-<%--                    </table>--%>
-<%--                </div>--%>
                 <form method="post" action="/submitPaymentDetail">
                     <input type="text" value="${plan.pname}" name="pname">
                     <input type="text" value="RETAIL" name="INDUSTRY_TYPE_ID"/>

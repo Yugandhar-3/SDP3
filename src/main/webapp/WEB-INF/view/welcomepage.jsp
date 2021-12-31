@@ -15,7 +15,7 @@ background-color: rgba(0,0,0,0.8);">
             <li><a href="/register" class="active">Register</a> |</li>
             <li><a href="/login" class="active">Login</a> | </li>
             <li><a href="/adminlogin" class="active">AdminLogin</a></li>
-            <li><a href="#" class="active">Contact</a></li>
+            <li><a href="/contactus" class="active">Contact</a></li>
         </div>
     </ul>
 </div>
@@ -90,6 +90,12 @@ background-color: rgba(0,0,0,0.8);">
                 <p style="text-decoration: none">Dont Have an Account ?? <a href="/admin-login" style="color: #2645d9">SignUp</a></p>
                 <br>
             </div>
+        </c:when>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${mode=='CONTACT_US'}">
+            <p>Dietly</p>
         </c:when>
     </c:choose>
 

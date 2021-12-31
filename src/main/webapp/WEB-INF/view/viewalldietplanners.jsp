@@ -13,9 +13,9 @@
             <li><a href="/viewallfitnessplanners">Fitnessplanners</a></li>
             <li><a href="/viewalldietplanners">DietPlanners</a></li>
             <li><a href="/viewallfood">Fooddetailvalues</a></li>
+            <li><a href="/viewplans">View All Plans</a></li>
             <li><a href="/logout"><i class="fas fa-sign-out-alt" ></i></a></li>
         </div>
-
     </ul>
 </div>
 <br>

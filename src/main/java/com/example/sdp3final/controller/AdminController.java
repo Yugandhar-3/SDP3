@@ -99,6 +99,13 @@ public class AdminController {
         return "adminhome";
     }
 
+    @GetMapping("viewplans")
+    public String viewPlans(HttpServletRequest request){
+        request.setAttribute("plans",adminService.showAllPlans());
+        request.setAttribute("mode","ALL_PLANS");
+        return "viewallplans";
+    }
+
     //ADDING NEW FOOD TYPE
     @RequestMapping("/addfood")
     public String AddFood(HttpServletRequest request){
