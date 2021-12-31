@@ -29,7 +29,6 @@
                         <tr>
                             <th>FOOD NAME</th>
                             <th>FOOD QUANTITY</th>
-                            <th>FOOD SIZE</th>
                             <th>CARBOHYDRATES QUANTITY</th>
                             <th>PROTEINS QUANTITY</th>
                             <th>VITAMINS QUANTITY</th>
@@ -42,7 +41,6 @@
                             <tr>
                                 <td>${foodtype.fname}</td>
                                 <td>${foodtype.fquantity}</td>
-                                <td>${foodtype.fsize}</td>
                                 <td>${foodtype.fcarbo}</td>
                                 <td>${foodtype.fprotein}</td>
                                 <td>${foodtype.fvitamins}</td>

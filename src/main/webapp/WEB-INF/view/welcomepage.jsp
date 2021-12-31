@@ -95,7 +95,9 @@ background-color: rgba(0,0,0,0.8);">
 
     <c:choose>
         <c:when test="${mode=='CONTACT_US'}">
-            <p>Dietly</p>
+            <p>Dietly is a one-stop solution for Diet Planning and Fitness Training needs.
+                We provide an interface where people can find a Diet Planner to maintain a balanced and hygienic diet based on their BMI.
+                Users can choose Fitness trainers to maintain a fit and healthy lifestyle. </p>
         </c:when>
     </c:choose>
 

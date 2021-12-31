@@ -10,16 +10,14 @@ public class FoodType {
     @Id
     private String fname;
     private String fquantity;
-    private String fsize;
     private String fcarbo;
     private String fprotein;
     private String fvitamins;
 
-    public FoodType(String fname, String fquantity, String fsize, String fcarbo, String fprotein, String fvitamins) {
+    public FoodType(String fname, String fquantity, String fcarbo, String fprotein, String fvitamins) {
         super();
         this.fname = fname;
         this.fquantity = fquantity;
-        this.fsize = fsize;
         this.fcarbo = fcarbo;
         this.fprotein = fprotein;
         this.fvitamins = fvitamins;
@@ -42,14 +40,6 @@ public class FoodType {
 
     public void setFquantity(String fquantity) {
         this.fquantity = fquantity;
-    }
-
-    public String getFsize() {
-        return fsize;
-    }
-
-    public void setFsize(String fsize) {
-        this.fsize = fsize;
     }
 
     public String getFcarbo() {
@@ -81,7 +71,6 @@ public class FoodType {
         return "FoodType{" +
                 "fname='" + fname + '\'' +
                 ", fquantity='" + fquantity + '\'' +
-                ", fsize='" + fsize + '\'' +
                 ", fcarbo='" + fcarbo + '\'' +
                 ", fprotein='" + fprotein + '\'' +
                 ", fvitamins='" + fvitamins + '\'' +

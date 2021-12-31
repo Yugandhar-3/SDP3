@@ -37,7 +37,7 @@
     <c:when test="${mode=='ADD_PLANS'}">
     <div class="container" align="center">
         <br>
-        <h3>ADDING NEW DIET PLANNER</h3>
+        <h3>ADDING NEW PLAN</h3>
         <form method="POST" action="/save-plans">
                 <%--                <input type="hidden" name="id" value=${dietplanner.id}><br>--%>
             <br><input type="text" name="pname" placeholder="PLAN NAME" value="${plans.pname}" required><br>
